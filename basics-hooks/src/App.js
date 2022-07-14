@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Post from "./post";
 
 function App({ initialCount }) {
   const [state, setState] = useState({
@@ -19,6 +20,20 @@ function App({ initialCount }) {
 
     setPosts([...posts, newPost]);
   };
+
+  const removePost = () => {
+    setPosts([]);
+  };
+  useEffect(() => {
+    console.log("change on state");
+  }, [state]);
+
+  useEffect(() => {
+    console.log("change on post");
+  }, [posts]);
+  useEffect(() => {
+    console.log("MOUNTED");
+  }, []);
   return (
     <>
       <h1>{state.user}</h1>
@@ -29,18 +44,18 @@ function App({ initialCount }) {
       <button onClick={() => setState({ ...state, count: state.count - 1 })}>
         Reduce -1
       </button>
+      <button onClick={() => setState({ ...state, count: initialCount })}>
+        Reset
+      </button>
 
       <hr />
 
       {posts.map((item, i) => (
-        <div key={i}>
-          <div>Name: {item.name}</div>
-          <div>Body: {item.body}</div>
-          <hr />
-        </div>
+        <Post item={item} key={i} />
       ))}
 
       <button onClick={addOnePost}>Add Post</button>
+      <button onClick={removePost}>Remove Post</button>
     </>
   );
 }
