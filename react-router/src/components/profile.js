@@ -1,17 +1,24 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 
-const Profile = () => {
-  let navigate = useNavigate();
+const Profile = (props) => {
+  const [redir, setRedir] = useState(false);
+  console.log(props);
 
+  const redirect = () => {
+    if (redir) {
+      props.history.push("/");
+    }
+  };
   return (
     <>
+      {redirect()}
       <Link
-        onClick={() => {
-          navigate("posts");
+        to={{
+          pathname: `${props.match.url}/posts`,
         }}
       >
-        people profile
+        posts of profile
       </Link>
     </>
   );

@@ -1,33 +1,32 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-import Home from "./components/home";
-import Posts from "./components/posts";
-import Profile from "./components/profile";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Posts from "./components/Posts";
+import Profile from "./components/Profile";
+import PostItem from "./components/PostItem";
 
 const App = () => {
   return (
-    <>
-      <BrowserRouter>
-        <header>
-          <Link to="/">Home</Link> - <Link to="/posts">Posts</Link> -
-          <Link
-            to={{
-              pathname: "/profile",
-              hash: "#francis",
-              search: "?true=enabled",
+    // HashRouter - Handles routes in a different way
+    // MemoryRouter - Everything happens on memory
+    <BrowserRouter>
+      <Header />
+      <div className="container">
+        <Switch>
+          {/* <Redirect from="/profile" to='/'/> */}
+          <Route path="/posts/:id" exact component={PostItem} />
+          <Route path="/posts" exact component={Posts} />
+          <Route path="/profile" exact component={Profile} />
+          <Route path="/" exact component={Home} />
+          <Route
+            render={() => {
+              <h3>Oops page not found</h3>;
             }}
-          >
-            Profile
-          </Link>
-          <hr />
-        </header>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/profile/:posts" element={<Profile />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+          />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 };
 
