@@ -12,7 +12,18 @@ class TransitionComp extends Component {
   render() {
     return (
       <>
-        <Transition in={this.state.show} timeout={2000}>
+        <Transition
+          in={this.state.show}
+          timeout={{ enter: 2000, exit: 50 }}
+          //   enter={false}
+          //   exit={false}
+          onEnter={() => {
+            console.log("ENTER");
+          }}
+          onExit={(node, isAppearing) => {
+            console.log("EXIT");
+          }}
+        >
           {(state) => (
             <div
               className={`square square-${state}`}
