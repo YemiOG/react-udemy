@@ -1,5 +1,4 @@
-import React, {useContext} from "react";
-import
+import React, { useContext } from "react";
 
 const UserItem = () => {
   return <div>UserItem</div>;
